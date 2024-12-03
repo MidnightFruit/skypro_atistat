@@ -20,6 +20,18 @@ class NetworkNodeSerializer(serializers.ModelSerializer):
     validators = [
         ProviderValidator(provider_field='provider', node_type_field='node_type'),
     ]
+    level = serializers.SerializerMethodField()
+
+    def get_level(self, obj):
+        if obj.node_type == 'FC' or obj.provider is None:
+            return 0
+        elif obj.provider.node_type == 'FC':
+            return 1
+        else:
+            return 2
+
+
     class Meta:
         model = NetworkNode
-        field = '__all__'
+        fields = '__all__'
+        read_only_fields = ('debt',)

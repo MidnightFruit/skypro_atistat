@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+import django_filters
 
-from NetworkManager.models import Contact
+from NetworkManager.models import Contact, NetworkNode
 
 
 class CityFilter(admin.SimpleListFilter):
@@ -16,3 +17,12 @@ class CityFilter(admin.SimpleListFilter):
         if self.value():
             return queryset.filter(contact__id=self.value())
         return queryset
+    
+
+class ContryFilter(django_filters.FilterSet):
+    related_field = django_filters.CharFilter(field_name='contacts__country', lookup_expr='iexact')
+    class Meta:
+        model = NetworkNode
+        fields = {
+            "contacts_country": ["iexact"],
+        }
