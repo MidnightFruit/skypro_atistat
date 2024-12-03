@@ -20,9 +20,7 @@ class CityFilter(admin.SimpleListFilter):
     
 
 class ContryFilter(django_filters.FilterSet):
-    related_field = django_filters.CharFilter(field_name='contacts__country', lookup_expr='iexact')
+    country = django_filters.CharFilter(field_name='contacts__country', lookup_expr='icontains')
     class Meta:
         model = NetworkNode
-        fields = {
-            "contacts_country": ["iexact"],
-        }
+        fields = ['country']

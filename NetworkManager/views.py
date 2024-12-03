@@ -12,7 +12,7 @@ class NetworkNodeViewSet(viewsets.ModelViewSet):
     queryset = NetworkNode.objects.all()
     serializer_class = NetworkNodeSerializer
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filter_class = ContryFilter
+    filterset_class  = ContryFilter
 
     def get_permissions(self):
         if self.action == 'create':
